@@ -1,7 +1,5 @@
-﻿using Agents;
-using Climatics;
+﻿using Climatics;
 using Identification;
-using Items;
 using Logic;
 using Mapping;
 using StateMachine;
@@ -10,16 +8,16 @@ namespace Worlding
 {
     public interface IWorld
     {
-        StateMachine<string, string> State { get; }
+        Machine State { get; }
 
         Time Time { get; }
 
-        Map Map { get; }
+        Map<IWorldMapped> Map { get; }
 
         ITruthTable Knowledge { get; }
 
-        Repository<IItem> Items { get; }
+        Repository<IWorldItem> Items { get; }
         
-        Repository<IAgent> Agents { get; }
+        Repository<IWorldAgent> Agents { get; }
     }
 }
