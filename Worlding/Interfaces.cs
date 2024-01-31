@@ -5,9 +5,9 @@ using Saver;
 
 namespace Worlding
 {
-    public interface IWorldItem: IItem, ISavable, ICloneable { }
+    public interface IWorldItem: IItem, ITimed, ISavable, ICloneable { }
 
-    public interface IWorldAgent: IAgent, ISavable, ICloneable { }
+    public interface IWorldAgent: IAgent, ITimed, ISavable, ICloneable { }
 
-    public interface IWorldMapped: IMapped, ISavable, ICloneable { }
+    public interface IWorldMapped: IMapped, ITimed, ISavable, ICloneable { }
 }

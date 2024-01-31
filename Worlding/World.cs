@@ -21,6 +21,11 @@ namespace Worlding
 
         public Repository<IWorldAgent> Agents { get; private set; }
 
+        public IEnumerable<ITimed> Timeds => new List<ITimed>()
+            .Concat(Items.All)
+            .Concat(Agents.All)
+            .Concat(Map.Mappeds);
+
         public World(
             Machine state,
             Time time,

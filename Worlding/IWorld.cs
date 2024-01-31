@@ -19,5 +19,7 @@ namespace Worlding
         Repository<IWorldItem> Items { get; }
         
         Repository<IWorldAgent> Agents { get; }
+
+        IEnumerable<ITimed> Timeds { get; }
     }
 }
