@@ -1,5 +1,6 @@
 ﻿using Climatics;
 using Identification;
+using Instanciation;
 using Logic;
 using Mapping;
 using Saver;
@@ -41,6 +42,9 @@ namespace Worlding
             Items = items;
             Agents = agents;
         }
+
+        public Existents<IWorldAgent, IWorldItem, IWorldMapped> Existents =>
+            new Existents<IWorldAgent, IWorldItem, IWorldMapped>(Agents, Items, Map);
 
         public object Clone() =>
             new World(

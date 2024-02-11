@@ -1,5 +1,6 @@
 ﻿using Climatics;
 using Identification;
+using Instanciation;
 using Logic;
 using Mapping;
 using StateMachine;
@@ -21,5 +22,7 @@ namespace Worlding
         Repository<IWorldAgent> Agents { get; }
 
         IEnumerable<ITimed> Timeds { get; }
+
+        Existents<IWorldAgent, IWorldItem, IWorldMapped> Existents { get; }
     }
 }
