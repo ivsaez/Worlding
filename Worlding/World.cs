@@ -1,8 +1,6 @@
-﻿using Agents;
-using Climatics;
+﻿using Climatics;
 using Identification;
 using Instanciation;
-using Items;
 using Logic;
 using Mapping;
 using Saver;
@@ -10,10 +8,7 @@ using StateMachine;
 
 namespace Worlding
 {
-    public class World<A, I, M> : IWorld<A, I, M>, ISavable, ICloneable
-        where A : IAgent, ITimed, ISavable, ICloneable
-        where I : IItem, ITimed, ISavable, ICloneable
-        where M : IMapped, ITimed, ISavable, ICloneable
+    public class World : IWorld, ISavable, ICloneable
     {
         public Machine State { get; private set; }
 
@@ -21,11 +16,11 @@ namespace Worlding
 
         public ITruthTable Knowledge { get; private set; }
 
-        public Map<M> Map { get; private set; }
+        public Map<IWorldMapped> Map { get; private set; }
 
-        public Repository<I> Items { get; private set; }
+        public Repository<IWorldItem> Items { get; private set; }
 
-        public Repository<A> Agents { get; private set; }
+        public Repository<IWorldAgent> Agents { get; private set; }
 
         public IdGenerator Generator { get; private set; }
 
@@ -39,24 +34,24 @@ namespace Worlding
         {
             State = state;
             Time = new Time();
-            Map = new Map<M>();
+            Map = new Map<IWorldMapped>();
             Knowledge = new TruthTable();
-            Items = new Repository<I>();
-            Agents = new Repository<A>();
+            Items = new Repository<IWorldItem>();
+            Agents = new Repository<IWorldAgent>();
             Generator = new IdGenerator();
         }
 
-        public Existents<A, I, M> Existents =>
-            new Existents<A, I, M>(Agents, Items, Map);
+        public Existents<IWorldAgent, IWorldItem, IWorldMapped> Existents =>
+            new Existents<IWorldAgent, IWorldItem, IWorldMapped>(Agents, Items, Map);
 
         public object Clone()
         {
-            var clone = new World<A, I, M>((Machine)State.Clone());
+            var clone = new World((Machine)State.Clone());
             clone.Time = (Time)Time.Clone();
-            clone.Map = (Map<M>)Map.Clone();
+            clone.Map = (Map<IWorldMapped>)Map.Clone();
             clone.Knowledge = (ITruthTable)Knowledge.Clone();
-            clone.Items = (Repository<I>)Items.Clone();
-            clone.Agents = (Repository<A>)Agents.Clone();
+            clone.Items = (Repository<IWorldItem>)Items.Clone();
+            clone.Agents = (Repository<IWorldAgent>)Agents.Clone();
             clone.Generator = (IdGenerator)Generator.Clone();
 
             return clone;   
@@ -76,10 +71,10 @@ namespace Worlding
         {
             State = save.GetSavable<Machine>(nameof(State));
             Time = save.GetSavable<Time>(nameof(Time));
-            Map = save.GetSavable<Map<M>>(nameof(Time));
+            Map = save.GetSavable<Map<IWorldMapped>>(nameof(Time));
             Knowledge = save.GetSavable<ITruthTable>(nameof(Time));
-            Items = save.GetSavable<Repository<I>>(nameof(Time));
-            Agents = save.GetSavable<Repository<A>>(nameof(Time));
+            Items = save.GetSavable<Repository<IWorldItem>>(nameof(Time));
+            Agents = save.GetSavable<Repository<IWorldAgent>>(nameof(Time));
             Generator = save.GetSavable<IdGenerator>(nameof(Generator));
         }
     }
