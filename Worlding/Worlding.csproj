@@ -13,7 +13,7 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/ivsaez/Worlding</RepositoryUrl>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <Version>1.5.6</Version>
+    <Version>1.5.7</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -30,7 +30,7 @@
   <ItemGroup>
     <PackageReference Include="isz-Agents" Version="3.1.0" />
     <PackageReference Include="isz-Climatics" Version="3.3.0" />
-    <PackageReference Include="isz-Instanciation" Version="1.4.0" />
+    <PackageReference Include="isz-Instanciation" Version="1.5.0" />
     <PackageReference Include="isz-Items" Version="3.1.0" />
     <PackageReference Include="isz-Logic" Version="1.2.0" />
     <PackageReference Include="isz-Mapping" Version="1.6.1" />
