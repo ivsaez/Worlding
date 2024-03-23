@@ -41,6 +41,21 @@ namespace Worlding
             Generator = new IdGenerator();
         }
 
+        public Turneds PassTurn(uint turns)
+        {
+            Time.IncreaseMinutes(turns);
+
+            var turneds = new Turneds();
+
+            foreach (var timed in Timeds) 
+            {
+                var output = timed.OnTurnPassed(this, turns);
+                turneds.Add(timed.Id, output);
+            }
+
+            return turneds;
+        }
+
         public Existents<IWorldAgent, IWorldItem, IWorldMapped> Existents =>
             new Existents<IWorldAgent, IWorldItem, IWorldMapped>(Agents, Items, Map);
 

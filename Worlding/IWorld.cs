@@ -26,5 +26,7 @@ namespace Worlding
         IdGenerator Generator { get; }
 
         Existents<IWorldAgent, IWorldItem, IWorldMapped> Existents { get; }
+
+        Turneds PassTurn(uint turns);
     }
 }
