@@ -19,10 +19,6 @@ namespace Worlding
         {
             var cloneAgent = (WorldAgent)clone();
 
-            cloneAgent.Id = Id;
-            cloneAgent.Name = Name;
-            cloneAgent.Surname = Surname;
-            cloneAgent.Importance = Importance;
             cloneAgent.Status = (Status)Status.Clone();
             cloneAgent.Position = (Position)Position.Clone();
 

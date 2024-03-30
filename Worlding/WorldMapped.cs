@@ -7,8 +7,8 @@ namespace Worlding
 {
     public abstract class WorldMapped : Mapped, IWorldMapped
     {
-        protected WorldMapped(string id) 
-            : base(id)
+        protected WorldMapped(string id, Externality externality) 
+            : base(id, externality)
         {
         }
 
@@ -16,7 +16,6 @@ namespace Worlding
         {
             var cloneMapped = (WorldMapped)clone();
 
-            cloneMapped.Id = Id;
             cloneMapped.Agents = (Mapping.Agents)Agents.Clone();
             cloneMapped.Items = (Inventory)Items.Clone();
             cloneMapped.Exits = (Exits)Exits.Clone();
@@ -31,6 +30,7 @@ namespace Worlding
             var saveMapped = save();
 
             saveMapped.With(nameof(Id), Id);
+            saveMapped.With(nameof(Externality), (int)Externality);
             saveMapped.WithSavable(nameof(Agents), Agents);
             saveMapped.WithSavable(nameof(Items), Items);
             saveMapped.WithSavable(nameof(Exits), Exits);
@@ -43,6 +43,7 @@ namespace Worlding
         public void Load(Save save)
         {
             Id = save.GetString(nameof(Id));
+            Externality = (Externality)save.GetInt(nameof(Externality));
             Agents = save.GetSavable<Mapping.Agents>(nameof(Agents));
             Items = save.GetSavable<Inventory>(nameof(Items));
             Exits = save.GetSavable<Exits>(nameof(Exits));
