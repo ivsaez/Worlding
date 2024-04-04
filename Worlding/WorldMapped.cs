@@ -7,6 +7,8 @@ namespace Worlding
 {
     public abstract class WorldMapped : Mapped, IWorldMapped
     {
+        private TurnPassed? turnPassed;
+
         protected WorldMapped(string id, Externality externality) 
             : base(id, externality)
         {
@@ -51,9 +53,21 @@ namespace Worlding
 
         protected abstract void load(Save save);
 
-        public Output OnTurnPassed(IWorld world, uint turns) =>
-            onTurnPassed(world, turns);
+        public WorldMapped WithTurnPassed(TurnPassed turnPassed)
+        {
+            if (this.turnPassed is not null)
+                throw new InvalidOperationException("Turn passed already assigned.");
 
-        protected abstract Output onTurnPassed(IWorld world, uint turns);
+            this.turnPassed = turnPassed;
+            return this;
+        }
+
+        public Output OnTurnPassed(IWorld world, uint turns)
+        {
+            if (turnPassed is not null)
+                return turnPassed(world, turns);
+
+            return Output.Empty;
+        }
     }
 }

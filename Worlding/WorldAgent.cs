@@ -6,6 +6,8 @@ namespace Worlding
 {
     public abstract class WorldAgent : Agent, IWorldAgent
     {
+        private TurnPassed? turnPassed;
+
         protected WorldAgent(
             string id,
             string name,
@@ -71,9 +73,21 @@ namespace Worlding
 
         protected abstract void load(Save save);
 
-        public Output OnTurnPassed(IWorld world, uint turns) =>
-            onTurnPassed(world, turns);
+        public WorldAgent WithTurnPassed(TurnPassed turnPassed)
+        {
+            if (this.turnPassed is not null)
+                throw new InvalidOperationException("Turn passed already assigned.");
+                
+            this.turnPassed = turnPassed;
+            return this;
+        }
 
-        protected abstract Output onTurnPassed(IWorld world, uint turns);
+        public Output OnTurnPassed(IWorld world, uint turns)
+        {
+            if (turnPassed is not null)
+                return turnPassed(world, turns);
+
+            return Output.Empty;
+        }
     }
 }
