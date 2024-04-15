@@ -8,8 +8,8 @@ namespace Worlding
     {
         private TurnPassed? turnPassed;
 
-        protected WorldItem(string id)
-            : base(id)
+        protected WorldItem(string id, uint space, uint weight)
+            : base(id, space, weight)
         {
         }
 
