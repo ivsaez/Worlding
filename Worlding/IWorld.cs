@@ -21,6 +21,8 @@ namespace Worlding
         
         Repository<IWorldAgent> Agents { get; }
 
+        Specials Specials { get; }
+
         IEnumerable<ITimed> Timeds { get; }
 
         IdGenerator Generator { get; }

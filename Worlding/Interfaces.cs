@@ -16,4 +16,8 @@ namespace Worlding
     public interface IWorldMapped : IMapped, ITimed, ISavable, ICloneable
     {
     }
+
+    public interface IWorldSpecial : ITimed, ISavable, ICloneable 
+    { 
+    }
 }

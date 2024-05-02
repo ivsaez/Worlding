@@ -22,13 +22,16 @@ namespace Worlding
 
         public Repository<IWorldAgent> Agents { get; private set; }
 
+        public Specials Specials { get; private set; }
+
         public IdGenerator Generator { get; private set; }
 
         public IEnumerable<ITimed> Timeds =>
             new List<ITimed>()
                 .Concat(Items.All.Cast<ITimed>())
                 .Concat(Agents.All.Cast<ITimed>())
-                .Concat(Map.Mappeds.Cast<ITimed>());
+                .Concat(Map.Mappeds.Cast<ITimed>())
+                .Concat(Specials.All.Cast<ITimed>());
 
         public World(Machine state)
         {
@@ -38,6 +41,7 @@ namespace Worlding
             Knowledge = new TruthTable();
             Items = new Repository<IWorldItem>();
             Agents = new Repository<IWorldAgent>();
+            Specials = new Specials();
             Generator = new IdGenerator();
         }
 
@@ -68,6 +72,7 @@ namespace Worlding
             clone.Items = (Repository<IWorldItem>)Items.Clone();
             clone.Agents = (Repository<IWorldAgent>)Agents.Clone();
             clone.Generator = (IdGenerator)Generator.Clone();
+            clone.Specials = (Specials)Specials.Clone();
 
             return clone;   
         }
@@ -80,7 +85,8 @@ namespace Worlding
                 .WithSavable(nameof(Knowledge), Knowledge)
                 .WithSavable(nameof(Items), Items)
                 .WithSavable(nameof(Agents), Agents)
-                .WithSavable(nameof(Generator), Generator);
+                .WithSavable(nameof(Generator), Generator)
+                .WithSavable(nameof(Specials), Specials);
 
         public void Load(Save save)
         {
@@ -91,6 +97,7 @@ namespace Worlding
             Items = save.GetSavable<Repository<IWorldItem>>(nameof(Time));
             Agents = save.GetSavable<Repository<IWorldAgent>>(nameof(Time));
             Generator = save.GetSavable<IdGenerator>(nameof(Generator));
+            Specials = save.GetSavable<Specials>(nameof(Specials));
         }
     }
 }
