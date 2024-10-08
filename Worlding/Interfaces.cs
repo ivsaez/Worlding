@@ -11,6 +11,7 @@ namespace Worlding
 
     public interface IWorldItem : IItem, ITimed, ISavable, ICloneable
     {
+        Props Props { get; }
     }
 
     public interface IWorldMapped : IMapped, ITimed, ISavable, ICloneable

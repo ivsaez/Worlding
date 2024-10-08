@@ -8,9 +8,12 @@ namespace Worlding
     {
         private TurnPassed? turnPassed;
 
+        public Props Props { get; private set; }
+
         protected WorldItem(string id, uint space, uint weight)
             : base(id, space, weight)
         {
+            Props = new Props();
         }
 
         public object Clone()
@@ -33,6 +36,7 @@ namespace Worlding
             saveItem.With(nameof(Id), Id);
             saveItem.With(nameof(Space), Space);
             saveItem.With(nameof(Weight), Weight);
+            saveItem.WithSavable(nameof(Props), Props);
 
             return saveItem;
         }
@@ -44,6 +48,7 @@ namespace Worlding
             Id = save.GetString(nameof(Id));
             Space = save.GetUInt(nameof(Space));
             Weight = save.GetUInt(nameof(Weight));
+            Props = save.GetSavable<Props>(nameof(Props));
         }
 
         protected abstract void load(Save save);
